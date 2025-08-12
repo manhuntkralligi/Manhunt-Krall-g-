@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Manhunt Krallığı</title>
 <style>
-  /* Arka plan */
   body, html {
     margin: 0; padding: 0; height: 100%;
     overflow-x: hidden;
@@ -16,14 +15,12 @@
     color: #fff;
   }
 
-  /* Üst bar */
   header {
     position: fixed;
     top: 0; left: 0; right: 0;
-    height: 30px; /* daha ince */
+    height: 35px;
     background: rgba(0,0,0,0.3);
     display: flex;
-    justify-content: flex-end;
     align-items: center;
     padding: 0 15px;
     box-sizing: border-box;
@@ -36,6 +33,27 @@
     animation-delay: 0.3s;
   }
 
+  /* Düzen: left, center, right container */
+  .left, .center, .right {
+    display: flex;
+    align-items: center;
+  }
+  .left {
+    flex: 1;
+  }
+  .center {
+    flex: 1;
+    justify-content: center;
+    font-size: 14px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .right {
+    flex: 1;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+
   header button {
     background: transparent;
     border: 1px solid #00ff00;
@@ -46,22 +64,25 @@
     padding: 3px 12px;
     transition: background 0.3s ease, color 0.3s ease;
   }
-
   header button:hover {
     background: #00ff00;
     color: #003300;
   }
 
-  /* Ortadaki karakter container */
-  .character-container {
-    height: 100vh;
+  .character-container, .ip-container {
+    height: calc(100vh - 35px);
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     opacity: 0;
     transform: translateY(30px);
     animation: slideUp 1s forwards;
     animation-delay: 0.8s;
+    color: #00ff00;
+    font-weight: 700;
+    font-size: 18px;
+    text-shadow: 0 0 5px #0f0;
   }
 
   .character-container img {
@@ -71,7 +92,6 @@
     filter: drop-shadow(0 0 8px #00ff00);
   }
 
-  /* Animasyon */
   @keyframes slideUp {
     to {
       opacity: 1;
@@ -79,12 +99,10 @@
     }
   }
 
-  /* Responsive */
   @media (max-width: 600px) {
     header {
-      justify-content: center;
-      gap: 8px;
       height: 40px;
+      padding: 0 10px;
     }
     header button {
       font-size: 10px;
@@ -100,14 +118,47 @@
 <body>
 
 <header>
-  <button onclick="alert('Yetkili Başvuru henüz aktif değil!')">Yetkili Başvuru</button>
-  <button onclick="alert('Kayıt Ol henüz aktif değil!')">Kayıt Ol</button>
-  <button onclick="alert('Giriş Yap henüz aktif değil!')">Giriş Yap</button>
+  <div class="left">
+    <button id="applyBtn">Yetkili Başvuru</button>
+  </div>
+  <div class="center" id="homeBtn">Ana Sayfa</div>
+  <div class="right">
+    <button onclick="alert('Kayıt Ol henüz aktif değil!')">Kayıt Ol</button>
+    <button onclick="alert('Giriş Yap henüz aktif değil!')">Giriş Yap</button>
+  </div>
 </header>
 
-<div class="character-container">
+<div class="ip-container" style="display:none;">
+  <p>ManhuntKrallığı IP: <strong>manhuntkralligi.aternos.me:34311</strong></p>
+</div>
+
+<div class="character-container" style="display:none;">
   <img src="https://static.wikia.nocookie.net/minecraft_gamepedia/images/5/55/Steve.png" alt="Minecraft Karakter" />
 </div>
+
+<script>
+  const applyBtn = document.getElementById('applyBtn');
+  const homeBtn = document.getElementById('homeBtn');
+  const ipContainer = document.querySelector('.ip-container');
+  const charContainer = document.querySelector('.character-container');
+
+  // Yetkili Başvuru tıklanınca uyarı
+  applyBtn.addEventListener('click', () => {
+    alert('Yetkili Başvuru henüz aktif değil!');
+  });
+
+  // Ana Sayfa tıklanınca IP ve karakteri göster, gizle diğerlerini
+  homeBtn.addEventListener('click', () => {
+    ipContainer.style.display = 'flex';
+    charContainer.style.display = 'flex';
+  });
+
+  // Sayfa açıldığında IP ve karakter gizli, sadece üst bar görünür
+  window.addEventListener('load', () => {
+    ipContainer.style.display = 'none';
+    charContainer.style.display = 'none';
+  });
+</script>
 
 </body>
 </html>
