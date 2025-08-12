@@ -5,258 +5,287 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Manhunt Krallığı</title>
 <style>
-  /* Arka plan Minecraft temalı (güzel, uyumlu) */
+  @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
   body, html {
-    margin: 0; padding: 0; height: 100%;
-    background: url('https://cdn.pixabay.com/photo/2015/09/18/20/23/minecraft-949548_1280.jpg') no-repeat center center fixed;
+    margin:0; padding:0; height:100%;
+    font-family: 'Press Start 2P', cursive;
+    background: url('https://i.pinimg.com/originals/1c/aa/52/1caa52d09e26726c6668a2e5c5c37882.jpg') no-repeat center center fixed;
     background-size: cover;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #e1e1e1;
-    overflow-x: hidden;
+    color: #0f0;
+    user-select:none;
   }
-
-  /* Üst bar */
   header {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    height: 45px;
-    background: rgba(0, 0, 0, 0.7);
     display: flex;
     align-items: center;
-    padding: 0 25px;
-    box-sizing: border-box;
-    z-index: 1000;
-    opacity: 0;
-    transform: translateY(30px);
-    animation: slideUp 0.8s forwards;
-  }
-
-  @keyframes slideUp {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .left, .center, .right {
-    display: flex;
-    align-items: center;
-  }
-
-  .left {
-    flex: 1;
-    gap: 18px;
-  }
-
-  .center {
-    flex: 1;
     justify-content: center;
-    font-size: 22px;
+    position: relative;
+    background: rgba(0,0,0,0.75);
+    padding: 12px 0;
+    box-shadow: 0 0 12px #0f0;
+  }
+  header h1 {
+    font-size: 1.8rem;
+    letter-spacing: 3px;
+    color: #55ff55;
+    cursor: default;
+    margin: 0 20px;
+  }
+  .left-buttons {
+    position: absolute;
+    left: 20px;
+    display: flex;
+    gap: 15px;
+  }
+  .left-buttons button {
+    background: #004400;
+    border: 2px solid #0f0;
+    padding: 8px 14px;
+    border-radius: 6px;
     font-weight: 700;
     cursor: pointer;
-    user-select: none;
-    color: #32cd32;
-    text-shadow: 0 0 8px #22bb22;
+    color: #0f0;
+    font-family: 'Press Start 2P', cursive;
+    text-shadow: 0 0 5px #0f0;
+    transition: background 0.3s ease, color 0.3s ease;
   }
-
-  .right {
-    flex: 1;
-    justify-content: flex-end;
-    gap: 18px;
-  }
-
-  /* Butonlar */
-  header button {
-    background: transparent;
-    border: 2px solid #32cd32;
-    border-radius: 15px;
-    color: #32cd32;
-    font-size: 13px;
-    cursor: pointer;
-    padding: 6px 18px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-  }
-  header button:hover {
-    background: #32cd32;
-    color: #002200;
-  }
-
-  /* Ana içerik: karakter ve ip alanı */
-  main {
-    margin-top: 60px;
-    height: calc(100vh - 60px);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    user-select: none;
-  }
-
-  .character-img {
-    max-width: 280px;
-    max-height: 360px;
-    filter: drop-shadow(0 0 15px #32cd32);
-    animation: fadeInUp 1.2s ease forwards;
-    opacity: 0;
-    transform: translateY(30px);
-  }
-
-  @keyframes fadeInUp {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  /* IP ve kopyalama alanı */
-  .ip-section {
-    margin-top: 28px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-size: 20px;
-    font-weight: 700;
-    color: #00ff00;
-    text-shadow: 0 0 10px #00bb00;
-    animation: fadeInUp 1.4s ease forwards;
-    opacity: 0;
-    transform: translateY(30px);
-  }
-
-  .ip-text {
-    cursor: pointer;
-    border-bottom: 1.8px solid #00ff00;
-    user-select: text;
-  }
-
-  .copy-btn {
+  .left-buttons button:hover, .left-buttons button.active {
     background: #00ff00;
-    border: none;
-    border-radius: 10px;
-    color: #004400;
-    padding: 5px 14px;
+    color: #003300;
+    box-shadow: 0 0 12px #0f0;
+  }
+  main {
+    max-width: 480px;
+    margin: 60px auto;
+    background: rgba(0,0,0,0.75);
+    border-radius: 15px;
+    padding: 25px 30px;
+    box-shadow: 0 0 20px #0f0;
+    text-align: center;
+    min-height: 300px;
+  }
+  #ipSection p {
     font-weight: 700;
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    user-select:none;
+    text-shadow: 0 0 5px #0f0;
+  }
+  #copyIpBtn {
+    background: #006600;
+    border: 2px solid #0f0;
+    padding: 12px 28px;
+    border-radius: 30px;
+    font-size: 1rem;
     cursor: pointer;
-    box-shadow: 0 0 12px #00ff00;
+    color: #0f0;
+    font-family: 'Press Start 2P', cursive;
+    text-shadow: 0 0 6px #0f0;
+    user-select:none;
     transition: background 0.3s ease;
   }
-  .copy-btn:hover {
-    background: #00cc00;
+  #copyIpBtn:hover {
+    background: #00ff00;
+    color: #003300;
+    box-shadow: 0 0 12px #0f0;
   }
-
-  /* Responsive */
-  @media (max-width: 600px) {
-    header {
-      height: 55px;
-      padding: 0 15px;
-    }
-    header button {
-      font-size: 11px;
-      padding: 7px 14px;
-    }
-    .center {
-      font-size: 18px;
-    }
-    .character-img {
-      max-width: 180px;
-      max-height: 230px;
-    }
-    .ip-section {
-      font-size: 16px;
-      gap: 8px;
-    }
-    .copy-btn {
-      padding: 5px 10px;
-      font-size: 14px;
-    }
+  #copyMsg {
+    color: #00ff00;
+    font-weight: 700;
+    margin-top: 10px;
+    height: 24px;
+    text-shadow: 0 0 6px #0f0;
+    user-select:none;
+  }
+  a.mail-link {
+    color: #0f0;
+    text-decoration: underline;
+    font-weight: 700;
+    font-family: 'Press Start 2P', cursive;
+  }
+  a.mail-link:hover {
+    color: #00ff00;
+  }
+  .info-text {
+    margin: 20px 0;
+    font-size: 1rem;
+    line-height: 1.4;
+    user-select:none;
   }
 </style>
 </head>
 <body>
 
 <header>
-  <div class="left">
-    <button id="applyBtn">Yetkili Başvuru</button>
-    <button id="supportBtn">Destek</button>
+  <div class="left-buttons">
+    <button id="btn-apply">Yetkili Başvuru</button>
+    <button id="btn-support">Destek</button>
+    <button id="btn-register">Kayıt Ol</button>
+    <button id="btn-login">Giriş Yap</button>
   </div>
-  <div class="center" id="homeBtn">Ana Sayfa</div>
-  <div class="right">
-    <button id="registerBtn">Kayıt Ol</button>
-    <button id="loginBtn">Giriş Yap</button>
-  </div>
+  <h1 id="pageTitle">Ana Sayfa</h1>
 </header>
 
-<main>
-  <img src="https://static.wikia.nocookie.net/minecraft_gamepedia/images/5/55/Steve.png" alt="Minecraft Karakter" class="character-img" id="charImg" style="display:none;" />
-  
-  <div class="ip-section" id="ipSection" style="display:none;">
-    <span class="ip-text" id="ipText" title="Tıkla ve IP'yi kopyala!">ManhuntKrallığı: <strong>manhuntkralligi.aternos.me:34311</strong></span>
-    <button class="copy-btn" id="copyBtn">IP'yi Kopyala</button>
-  </div>
+<main id="contentArea">
+
+  <!-- Ana Sayfa İçerik -->
+  <section id="homeSection">
+    <div id="ipSection">
+      <p>ManhuntKrallığı IP</p>
+      <button id="copyIpBtn">Tıkla ve Kopyala</button>
+      <div id="copyMsg"></div>
+    </div>
+    <img src="https://minecraftskinstealer.com/api/v1/skin/render/10028/150/150" alt="Minecraft Karakter" style="margin-top: 20px; border: 3px solid #0f0; border-radius: 15px;" />
+  </section>
+
+  <!-- Yetkili Başvuru İçerik -->
+  <section id="applySection" style="display:none; text-align:left;">
+    <h2>Yetkili Başvuru</h2>
+    <p class="info-text">
+      Lütfen aşağıdaki soruları dikkatlice okuyun.<br />
+      Soruları doldurup <strong>manhuntkralligi@gmail.com</strong> adresine mail atınız.<br /><br />
+      1. Adınız ve soyadınız:<br />
+      2. Kaç yaşındasınız?<br />
+      3. Minecraft deneyiminiz nedir?<br />
+      4. Neden yetkili olmak istiyorsunuz?<br />
+      5. Daha önce başka bir sunucuda yetkili oldunuz mu?<br />
+      6. Size ulaşabileceğimiz en uygun zamanlar:<br />
+    </p>
+  </section>
+
+  <!-- Destek İçerik -->
+  <section id="supportSection" style="display:none;">
+    <h2>Destek</h2>
+    <p class="info-text">
+      Şikayetinizi veya isteğinizi aşağıdaki mail adresine yazabilirsiniz:
+    </p>
+    <p><a class="mail-link" href="mailto:manhuntkralligi@gmail.com">manhuntkralligi@gmail.com</a></p>
+  </section>
+
+  <!-- Kayıt Ol İçerik -->
+  <section id="registerSection" style="display:none;">
+    <h2>Kayıt Ol</h2>
+    <p class="info-text">Kayıt olma işlemi şu anda aktif değildir.</p>
+  </section>
+
+  <!-- Giriş Yap İçerik -->
+  <section id="loginSection" style="display:none;">
+    <h2>Giriş Yap</h2>
+    <p class="info-text">Giriş yapma işlemi şu anda aktif değildir.</p>
+  </section>
+
 </main>
 
 <script>
-  const applyBtn = document.getElementById('applyBtn');
-  const supportBtn = document.getElementById('supportBtn');
-  const homeBtn = document.getElementById('homeBtn');
-  const registerBtn = document.getElementById('registerBtn');
-  const loginBtn = document.getElementById('loginBtn');
-  const charImg = document.getElementById('charImg');
-  const ipSection = document.getElementById('ipSection');
-  const ipText = document.getElementById('ipText');
-  const copyBtn = document.getElementById('copyBtn');
+  const serverIP = 'manhuntkralligi.aternos.me:34311';
 
-  // Aktif değil uyarıları
-  applyBtn.addEventListener('click', () => {
-    alert('Yetkili Başvuru henüz aktif değil!');
-  });
-  registerBtn.addEventListener('click', () => {
-    alert('Kayıt Ol henüz aktif değil!');
-  });
-  loginBtn.addEventListener('click', () => {
-    alert('Giriş Yap henüz aktif değil!');
-  });
+  const copyIpBtn = document.getElementById('copyIpBtn');
+  const copyMsg = document.getElementById('copyMsg');
 
-  // Destek butonu mail alert
-  supportBtn.addEventListener('click', () => {
-    alert('Şikayetinizi bildirmek için lütfen manhuntkralligi@gmail.com adresine mail atınız.');
-  });
-
-  // Ana Sayfa tıklanınca karakter ve ip göster/gizle
-  homeBtn.addEventListener('click', () => {
-    if (charImg.style.display === 'none') {
-      charImg.style.display = 'block';
-      ipSection.style.display = 'flex';
-    } else {
-      charImg.style.display = 'none';
-      ipSection.style.display = 'none';
-    }
-  });
-
-  // IP kısmına tıklayınca kopyala
-  ipText.addEventListener('click', () => {
-    copyIP();
-  });
-
-  copyBtn.addEventListener('click', () => {
-    copyIP();
-  });
-
-  function copyIP() {
-    const ipAddress = 'manhuntkralligi.aternos.me:34311';
-    navigator.clipboard.writeText(ipAddress).then(() => {
-      alert('IP kopyalandı!');
-    }).catch(() => {
-      alert('IP kopyalanamadı! Tarayıcı desteklemiyor olabilir.');
+  copyIpBtn.addEventListener('click', () => {
+    navigator.clipboard.writeText(serverIP).then(() => {
+      copyMsg.textContent = 'IP kopyalandı!';
+      setTimeout(() => copyMsg.textContent = '', 2000);
     });
+  });
+
+  // Butonlar ve içerikler
+  const buttons = {
+    apply: document.getElementById('btn-apply'),
+    support: document.getElementById('btn-support'),
+    register: document.getElementById('btn-register'),
+    login: document.getElementById('btn-login')
+  };
+
+  const sections = {
+    home: document.getElementById('homeSection'),
+    apply: document.getElementById('applySection'),
+    support: document.getElementById('supportSection'),
+    register: document.getElementById('registerSection'),
+    login: document.getElementById('loginSection')
+  };
+
+  const pageTitle = document.getElementById('pageTitle');
+
+  function hideAllSections() {
+    for (const key in sections) {
+      sections[key].style.display = 'none';
+    }
   }
 
-  // Sayfa yüklendiğinde karakter ve ip gizli
-  window.addEventListener('load', () => {
-    charImg.style.display = 'none';
-    ipSection.style.display = 'none';
+  function removeActiveClass() {
+    for (const key in buttons) {
+      buttons[key].classList.remove('active');
+    }
+  }
+
+  buttons.apply.addEventListener('click', () => {
+    hideAllSections();
+    sections.apply.style.display = 'block';
+    pageTitle.textContent = 'Yetkili Başvuru';
+    removeActiveClass();
+    buttons.apply.classList.add('active');
   });
+
+  buttons.support.addEventListener('click', () => {
+    hideAllSections();
+    sections.support.style.display = 'block';
+    pageTitle.textContent = 'Destek';
+    removeActiveClass();
+    buttons.support.classList.add('active');
+  });
+
+  buttons.register.addEventListener('click', () => {
+    hideAllSections();
+    sections.register.style.display = 'block';
+    pageTitle.textContent = 'Kayıt Ol';
+    removeActiveClass();
+    buttons.register.classList.add('active');
+  });
+
+  buttons.login.addEventListener('click', () => {
+    hideAllSections();
+    sections.login.style.display = 'block';
+    pageTitle.textContent = 'Giriş Yap';
+    removeActiveClass();
+    buttons.login.classList.add('active');
+  });
+
+  // Ana sayfa butonu sayılacak en üstte yok, onu da ekleyelim hızlı dönüş için:
+  const header = document.querySelector('header');
+  const homeBtn = document.createElement('button');
+  homeBtn.textContent = 'Ana Sayfa';
+  homeBtn.style.cssText = `
+    position: absolute;
+    right: 20px;
+    background: #004400;
+    border: 2px solid #0f0;
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-weight: 700;
+    cursor: pointer;
+    color: #0f0;
+    font-family: 'Press Start 2P', cursive;
+    text-shadow: 0 0 5px #0f0;
+    transition: background 0.3s ease, color 0.3s ease;
+  `;
+  homeBtn.addEventListener('click', () => {
+    hideAllSections();
+    sections.home.style.display = 'block';
+    pageTitle.textContent = 'Ana Sayfa';
+    removeActiveClass();
+  });
+  homeBtn.addEventListener('mouseenter', () => {
+    homeBtn.style.background = '#00ff00';
+    homeBtn.style.color = '#003300';
+    homeBtn.style.boxShadow = '0 0 12px #0f0';
+  });
+  homeBtn.addEventListener('mouseleave', () => {
+    homeBtn.style.background = '#004400';
+    homeBtn.style.color = '#0f0';
+    homeBtn.style.boxShadow = 'none';
+  });
+  header.appendChild(homeBtn);
+
 </script>
 
 </body>
