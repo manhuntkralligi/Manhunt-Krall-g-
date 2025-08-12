@@ -18,78 +18,16 @@
   header {
     position: fixed;
     top: 0; left: 0; right: 0;
-    height: 35px;
-    background: rgba(0,0,0,0.3);
+    height: 40px;
+    background: rgba(0,0,0,0.35);
     display: flex;
     align-items: center;
-    padding: 0 15px;
+    padding: 0 20px;
     box-sizing: border-box;
-    gap: 12px;
-    font-weight: 600;
     z-index: 100;
     opacity: 0;
     transform: translateY(30px);
     animation: slideUp 1s forwards;
-    animation-delay: 0.3s;
-  }
-
-  /* Düzen: left, center, right container */
-  .left, .center, .right {
-    display: flex;
-    align-items: center;
-  }
-  .left {
-    flex: 1;
-  }
-  .center {
-    flex: 1;
-    justify-content: center;
-    font-size: 14px;
-    cursor: pointer;
-    user-select: none;
-  }
-  .right {
-    flex: 1;
-    justify-content: flex-end;
-    gap: 12px;
-  }
-
-  header button {
-    background: transparent;
-    border: 1px solid #00ff00;
-    border-radius: 12px;
-    color: #00ff00;
-    font-size: 11px;
-    cursor: pointer;
-    padding: 3px 12px;
-    transition: background 0.3s ease, color 0.3s ease;
-  }
-  header button:hover {
-    background: #00ff00;
-    color: #003300;
-  }
-
-  .character-container, .ip-container {
-    height: calc(100vh - 35px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    opacity: 0;
-    transform: translateY(30px);
-    animation: slideUp 1s forwards;
-    animation-delay: 0.8s;
-    color: #00ff00;
-    font-weight: 700;
-    font-size: 18px;
-    text-shadow: 0 0 5px #0f0;
-  }
-
-  .character-container img {
-    max-height: 70vh;
-    max-width: 40vw;
-    object-fit: contain;
-    filter: drop-shadow(0 0 8px #00ff00);
   }
 
   @keyframes slideUp {
@@ -99,18 +37,85 @@
     }
   }
 
+  .left, .center, .right {
+    display: flex;
+    align-items: center;
+  }
+
+  .left {
+    flex: 1;
+    gap: 15px;
+  }
+  .center {
+    flex: 1;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    user-select: none;
+    letter-spacing: 2px;
+    color: #00ff00;
+    text-shadow: 0 0 6px #0f0;
+  }
+  .right {
+    flex: 1;
+    justify-content: flex-end;
+    gap: 15px;
+  }
+
+  header button {
+    background: transparent;
+    border: 1.8px solid #00ff00;
+    border-radius: 12px;
+    color: #00ff00;
+    font-size: 12px;
+    cursor: pointer;
+    padding: 5px 16px;
+    transition: background 0.3s ease, color 0.3s ease;
+    font-weight: 600;
+  }
+  header button:hover {
+    background: #00ff00;
+    color: #003300;
+  }
+
+  .character-container, .ip-container {
+    height: calc(100vh - 40px);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: #00ff00;
+    font-weight: 700;
+    font-size: 20px;
+    text-shadow: 0 0 8px #0f0;
+    animation: slideUp 1s forwards;
+    animation-delay: 0.8s;
+  }
+
+  .character-container img {
+    max-height: 70vh;
+    max-width: 40vw;
+    object-fit: contain;
+    filter: drop-shadow(0 0 12px #00ff00);
+    margin-bottom: 15px;
+  }
+
   @media (max-width: 600px) {
     header {
-      height: 40px;
+      height: 50px;
       padding: 0 10px;
     }
     header button {
-      font-size: 10px;
-      padding: 5px 10px;
+      font-size: 11px;
+      padding: 7px 12px;
     }
     .character-container img {
       max-height: 50vh;
       max-width: 70vw;
+    }
+    .center {
+      font-size: 16px;
     }
   }
 </style>
@@ -120,43 +125,58 @@
 <header>
   <div class="left">
     <button id="applyBtn">Yetkili Başvuru</button>
+    <button id="supportBtn">Destek</button>
   </div>
   <div class="center" id="homeBtn">Ana Sayfa</div>
   <div class="right">
-    <button onclick="alert('Kayıt Ol henüz aktif değil!')">Kayıt Ol</button>
-    <button onclick="alert('Giriş Yap henüz aktif değil!')">Giriş Yap</button>
+    <button id="registerBtn">Kayıt Ol</button>
+    <button id="loginBtn">Giriş Yap</button>
   </div>
 </header>
 
-<div class="ip-container" style="display:none;">
-  <p>ManhuntKrallığı IP: <strong>manhuntkralligi.aternos.me:34311</strong></p>
+<div class="character-container" id="charContainer">
+  <img src="https://static.wikia.nocookie.net/minecraft_gamepedia/images/5/55/Steve.png" alt="Minecraft Karakter" />
 </div>
 
-<div class="character-container" style="display:none;">
-  <img src="https://static.wikia.nocookie.net/minecraft_gamepedia/images/5/55/Steve.png" alt="Minecraft Karakter" />
+<div class="ip-container" id="ipContainer">
+  <p>ManhuntKrallığı IP: <strong>manhuntkralligi.aternos.me:34311</strong></p>
 </div>
 
 <script>
   const applyBtn = document.getElementById('applyBtn');
+  const supportBtn = document.getElementById('supportBtn');
   const homeBtn = document.getElementById('homeBtn');
-  const ipContainer = document.querySelector('.ip-container');
-  const charContainer = document.querySelector('.character-container');
+  const registerBtn = document.getElementById('registerBtn');
+  const loginBtn = document.getElementById('loginBtn');
+  const charContainer = document.getElementById('charContainer');
+  const ipContainer = document.getElementById('ipContainer');
 
-  // Yetkili Başvuru tıklanınca uyarı
+  // Tüm butonlar için aktif değil uyarısı (kayıt, giriş, başvuru)
   applyBtn.addEventListener('click', () => {
     alert('Yetkili Başvuru henüz aktif değil!');
   });
-
-  // Ana Sayfa tıklanınca IP ve karakteri göster, gizle diğerlerini
-  homeBtn.addEventListener('click', () => {
-    ipContainer.style.display = 'flex';
-    charContainer.style.display = 'flex';
+  registerBtn.addEventListener('click', () => {
+    alert('Kayıt Ol henüz aktif değil!');
+  });
+  loginBtn.addEventListener('click', () => {
+    alert('Giriş Yap henüz aktif değil!');
   });
 
-  // Sayfa açıldığında IP ve karakter gizli, sadece üst bar görünür
+  // Destek butonu mail alerti
+  supportBtn.addEventListener('click', () => {
+    alert('Şikayetinizi bildirmek için lütfen manhuntkralligi@gmail.com adresine mail atınız.');
+  });
+
+  // Ana Sayfa tıklanınca karakter ve IP göster
+  homeBtn.addEventListener('click', () => {
+    charContainer.style.display = 'flex';
+    ipContainer.style.display = 'flex';
+  });
+
+  // Sayfa yüklendiğinde karakter ve IP gizli
   window.addEventListener('load', () => {
-    ipContainer.style.display = 'none';
     charContainer.style.display = 'none';
+    ipContainer.style.display = 'none';
   });
 </script>
 
