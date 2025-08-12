@@ -5,41 +5,46 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Manhunt Krallığı</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-
-  html, body {
+  /* Arka plan: Pinterest'teki linkten örnek renk tonu ve bulanıklık */
+  body, html {
     margin: 0; padding: 0; height: 100%;
-    font-family: 'Press Start 2P', cursive;
-    overflow: hidden;
-  }
-
-  body {
-    background: url('https://i.pinimg.com/originals/6a/c6/89/6ac68907ca53538bc56a0eeb497a2d97.jpg') no-repeat center center fixed;
+    overflow-x: hidden;
+    background: url('https://i.pinimg.com/originals/16/d6/c5/16d6c5d5a82ac3cd0b226ee1772d607a.jpg') no-repeat center center fixed;
     background-size: cover;
-    position: relative;
-    color: #0f0;
+    filter: brightness(0.7);
+    font-family: 'Arial', sans-serif;
+    color: #fff;
   }
 
+  /* Üst bar */
   header {
     position: fixed;
-    top: 0; right: 0;
-    padding: 20px;
+    top: 0; left: 0; right: 0;
+    height: 40px;
+    background: rgba(0,0,0,0.4);
     display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0 20px;
+    box-sizing: border-box;
     gap: 15px;
-    z-index: 10;
+    font-weight: 600;
+    z-index: 100;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: slideUp 1s forwards;
+    animation-delay: 0.3s;
   }
 
   header button {
-    background: rgba(0, 100, 0, 0.7);
-    border: 2px solid #0f0;
-    border-radius: 8px;
-    padding: 10px 18px;
-    color: #0f0;
-    font-weight: 700;
+    background: transparent;
+    border: 1.5px solid #00ff00;
+    border-radius: 15px;
+    color: #00ff00;
+    font-size: 12px;
     cursor: pointer;
-    transition: background 0.3s, color 0.3s;
-    font-family: 'Press Start 2P', cursive;
-    text-shadow: 0 0 5px #0f0;
+    padding: 5px 14px;
+    transition: background 0.3s ease, color 0.3s ease;
   }
 
   header button:hover {
@@ -47,40 +52,62 @@
     color: #003300;
   }
 
-  main {
-    height: 100%;
+  /* Ortadaki karakter container */
+  .character-container {
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: slideUp 1s forwards;
+    animation-delay: 0.8s;
   }
 
-  main img {
-    max-height: 80vh;
-    max-width: 60vw;
-    user-select: none;
-    pointer-events: none;
-    filter: drop-shadow(0 0 10px #0f0);
+  .character-container img {
+    max-height: 70vh;
+    max-width: 40vw;
+    object-fit: contain;
+    filter: drop-shadow(0 0 8px #00ff00);
+  }
+
+  /* Animasyon */
+  @keyframes slideUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Responsive küçük ekran için */
+  @media (max-width: 600px) {
+    header {
+      justify-content: center;
+      gap: 8px;
+      height: 50px;
+    }
+    header button {
+      font-size: 10px;
+      padding: 5px 10px;
+    }
+    .character-container img {
+      max-height: 50vh;
+      max-width: 70vw;
+    }
   }
 </style>
 </head>
 <body>
 
 <header>
-  <button id="applyBtn">Yetkili Başvuru</button>
-  <button id="showRegister">Kayıt Ol</button>
-  <button id="showLogin">Giriş Yap</button>
+  <button>Yetkili Başvuru</button>
+  <button>Kayıt Ol</button>
+  <button>Giriş Yap</button>
 </header>
 
-<main>
-  <img src="https://static.wikia.nocookie.net/minecraft_gamepedia/images/9/9a/Alex_skin.png" alt="Minecraft Yakışıklı Karakter" />
-</main>
-
-<script>
-  // Butonlara tıklama eventleri buraya eklenebilir
-  document.getElementById('applyBtn').addEventListener('click', () => alert('Yetkili başvuru butonuna tıklandı'));
-  document.getElementById('showRegister').addEventListener('click', () => alert('Kayıt ol butonuna tıklandı'));
-  document.getElementById('showLogin').addEventListener('click', () => alert('Giriş yap butonuna tıklandı'));
-</script>
+<div class="character-container">
+  <img src="https://minecraftskinstealer.com/api/v1/skin/render/fullbody/Steve/300" alt="Minecraft Karakter" />
+</div>
 
 </body>
 </html>
