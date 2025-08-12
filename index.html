@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Manhunt Krallığı</title>
 <style>
-  /* Arka plan: Pinterest'teki linkten örnek renk tonu ve bulanıklık */
+  /* Arka plan */
   body, html {
     margin: 0; padding: 0; height: 100%;
     overflow-x: hidden;
@@ -20,14 +20,14 @@
   header {
     position: fixed;
     top: 0; left: 0; right: 0;
-    height: 40px;
-    background: rgba(0,0,0,0.4);
+    height: 30px; /* daha ince */
+    background: rgba(0,0,0,0.3);
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    padding: 0 20px;
+    padding: 0 15px;
     box-sizing: border-box;
-    gap: 15px;
+    gap: 12px;
     font-weight: 600;
     z-index: 100;
     opacity: 0;
@@ -38,12 +38,12 @@
 
   header button {
     background: transparent;
-    border: 1.5px solid #00ff00;
-    border-radius: 15px;
+    border: 1px solid #00ff00;
+    border-radius: 12px;
     color: #00ff00;
-    font-size: 12px;
+    font-size: 11px;
     cursor: pointer;
-    padding: 5px 14px;
+    padding: 3px 12px;
     transition: background 0.3s ease, color 0.3s ease;
   }
 
@@ -79,12 +79,12 @@
     }
   }
 
-  /* Responsive küçük ekran için */
+  /* Responsive */
   @media (max-width: 600px) {
     header {
       justify-content: center;
       gap: 8px;
-      height: 50px;
+      height: 40px;
     }
     header button {
       font-size: 10px;
@@ -100,13 +100,13 @@
 <body>
 
 <header>
-  <button>Yetkili Başvuru</button>
-  <button>Kayıt Ol</button>
-  <button>Giriş Yap</button>
+  <button onclick="alert('Yetkili Başvuru henüz aktif değil!')">Yetkili Başvuru</button>
+  <button onclick="alert('Kayıt Ol henüz aktif değil!')">Kayıt Ol</button>
+  <button onclick="alert('Giriş Yap henüz aktif değil!')">Giriş Yap</button>
 </header>
 
 <div class="character-container">
-  <img src="https://minecraftskinstealer.com/api/v1/skin/render/fullbody/Steve/300" alt="Minecraft Karakter" />
+  <img src="https://static.wikia.nocookie.net/minecraft_gamepedia/images/5/55/Steve.png" alt="Minecraft Karakter" />
 </div>
 
 </body>
