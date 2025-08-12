@@ -216,128 +216,80 @@
     <div id="loginError" class="error-msg"></div>
     <button type="submit">Giriş Yap</button>
   </form>
-
-  <form id="applyForm" class="hidden" autocomplete="off">
-    <h2>Yetkili Başvuru</h2>
-    <label for="applyName">İsim Soyisim</label>
-    <input type="text" id="applyName" placeholder="İsim Soyisim" required />
-    <label for="applyAge">Yaş</label>
-    <input type="number" id="applyAge" min="7" max="120" placeholder="Yaş" required />
-    <label for="applyEmail">E-posta</label>
-    <input type="email" id="applyEmail" placeholder="E-posta" required />
-    <label for="applyCity">İl</label>
-    <input type="text" id="applyCity" placeholder="İl" required />
-    <label for="applyDistrict">İlçe</label>
-    <input type="text" id="applyDistrict" placeholder="İlçe" required />
-    <div id="applyError" class="error-msg"></div>
-    <div id="applySuccess" class="success-msg"></div>
-    <button type="submit">Başvuruyu Gönder</button>
-  </form>
 </main>
 
 <script>
-  // IP adresi
+  // IP adresi (örnek)
   const serverIP = 'play.manhuntkralligi.com';
 
-  // Elementler
+  // Sayfa elementleri
   const ipSection = document.getElementById('ipSection');
   const registerForm = document.getElementById('registerForm');
   const loginForm = document.getElementById('loginForm');
-  const applyForm = document.getElementById('applyForm');
 
   const copyIpBtn = document.getElementById('copyIpBtn');
   const copyMsg = document.getElementById('copyMsg');
 
+  // Butonlar
   const homeBtn = document.getElementById('homeBtn');
   const showRegister = document.getElementById('showRegister');
   const showLogin = document.getElementById('showLogin');
   const applyBtn = document.getElementById('applyBtn');
 
-  // Ülkeler listesi
+  // Ülkeler listesi (tam liste ekleyebilirsin)
   const countries = [
     "Türkiye", "Almanya", "Amerika Birleşik Devletleri", "Fransa", "İngiltere", "İtalya",
     "İspanya", "Brezilya", "Rusya", "Çin"
   ];
 
-  // Ülkeleri doldur
+  // Ülkeleri select’e ekle
   const regCountry = document.getElementById('regCountry');
-  countries.forEach(c => {
-    let option = document.createElement('option');
-    option.value = c;
-    option.textContent = c;
+  countries.forEach(country => {
+    const option = document.createElement('option');
+    option.value = country;
+    option.textContent = country;
     regCountry.appendChild(option);
   });
 
-  // Buton eventleri
-  homeBtn.onclick = () => {
-    registerForm.classList.add('hidden');
-    loginForm.classList.add('hidden');
-    applyForm.classList.add('hidden');
-    ipSection.style.display = 'block';
-  };
+  // IP kopyalama
+  copyIpBtn.addEventListener('click', () => {
+    navigator.clipboard.writeText(serverIP).then(() => {
+      copyMsg.textContent = "IP kopyalandı!";
+      setTimeout(() => { copyMsg.textContent = ""; }, 2000);
+    });
+  });
 
-  showRegister.onclick = () => {
+  // Form göster/gizle fonksiyonları
+  showRegister.addEventListener('click', () => {
     registerForm.classList.remove('hidden');
     loginForm.classList.add('hidden');
-    applyForm.classList.add('hidden');
-    ipSection.style.display = 'none';
-  };
-
-  showLogin.onclick = () => {
+    ipSection.classList.add('hidden');
+  });
+  showLogin.addEventListener('click', () => {
     loginForm.classList.remove('hidden');
     registerForm.classList.add('hidden');
-    applyForm.classList.add('hidden');
-    ipSection.style.display = 'none';
-  };
-
-  applyBtn.onclick = () => {
-    applyForm.classList.remove('hidden');
+    ipSection.classList.add('hidden');
+  });
+  homeBtn.addEventListener('click', () => {
+    ipSection.classList.remove('hidden');
     registerForm.classList.add('hidden');
     loginForm.classList.add('hidden');
-    ipSection.style.display = 'none';
-  };
+  });
 
-  // IP kopyalama
-  copyIpBtn.onclick = () => {
-    navigator.clipboard.writeText(serverIP).then(() => {
-      copyMsg.textContent = 'IP Kopyalandı!';
-      setTimeout(() => copyMsg.textContent = '', 2000);
-    });
-  };
+  // Yetkili Başvuru butonu tıklandığında alert göster
+  applyBtn.addEventListener('click', () => {
+    alert(
+      `Yetkili Başvuru:\n\n` +
+      `Lütfen aşağıdaki soruları mailinize kopyalayın, doldurun ve\n` +
+      `manhuntkralligi@gmail.com adresine gönderin:\n\n` +
+      `- İsim Soyisim\n` +
+      `- Yaş\n` +
+      `- E-posta\n` +
+      `- İl\n` +
+      `- İlçe`
+    );
+  });
 
-  // Basit form submit engelleme ve mesajlar (kendi backend'in yoksa sadece gösterir)
-  registerForm.onsubmit = e => {
-    e.preventDefault();
-    const pass1 = document.getElementById('regPass').value;
-    const pass2 = document.getElementById('regPass2').value;
-    const error = document.getElementById('regError');
-    const success = document.getElementById('regSuccess');
-    error.textContent = '';
-    success.textContent = '';
-
-    if(pass1 !== pass2) {
-      error.textContent = 'Şifreler uyuşmuyor!';
-      return;
-    }
-    success.textContent = 'Kayıt başarılı (demo)!';
-  };
-
-  loginForm.onsubmit = e => {
-    e.preventDefault();
-    const error = document.getElementById('loginError');
-    error.textContent = '';
-    // Demo giriş, hep hata yok
-    alert('Giriş demo sürümünde aktif değil.');
-  };
-
-  applyForm.onsubmit = e => {
-    e.preventDefault();
-    const error = document.getElementById('applyError');
-    const success = document.getElementById('applySuccess');
-    error.textContent = '';
-    success.textContent = '';
-    success.textContent = 'Başvurunuz alındı (demo)!';
-  };
 </script>
 
 </body>
