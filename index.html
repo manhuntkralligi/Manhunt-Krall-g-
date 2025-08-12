@@ -4,126 +4,83 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Manhunt Krallığı</title>
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
 <style>
-  /* ...stil kodları aynı... */
+  @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+  html, body {
+    margin: 0; padding: 0; height: 100%;
+    font-family: 'Press Start 2P', cursive;
+    overflow: hidden;
+  }
+
+  body {
+    background: url('https://i.pinimg.com/originals/6a/c6/89/6ac68907ca53538bc56a0eeb497a2d97.jpg') no-repeat center center fixed;
+    background-size: cover;
+    position: relative;
+    color: #0f0;
+  }
+
+  header {
+    position: fixed;
+    top: 0; right: 0;
+    padding: 20px;
+    display: flex;
+    gap: 15px;
+    z-index: 10;
+  }
+
+  header button {
+    background: rgba(0, 100, 0, 0.7);
+    border: 2px solid #0f0;
+    border-radius: 8px;
+    padding: 10px 18px;
+    color: #0f0;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+    font-family: 'Press Start 2P', cursive;
+    text-shadow: 0 0 5px #0f0;
+  }
+
+  header button:hover {
+    background: #00ff00;
+    color: #003300;
+  }
+
+  main {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  main img {
+    max-height: 80vh;
+    max-width: 60vw;
+    user-select: none;
+    pointer-events: none;
+    filter: drop-shadow(0 0 10px #0f0);
+  }
 </style>
 </head>
 <body>
 
 <header>
-  <div class="left-btn">
-    <button id="applyBtn">Yetkili Başvuru</button>
-  </div>
-  <h1 id="homeBtn">Ana Sayfa</h1>
-  <div class="right-btns">
-    <button id="showRegister">Kayıt Ol</button>
-    <button id="showLogin">Giriş Yap</button>
-  </div>
+  <button id="applyBtn">Yetkili Başvuru</button>
+  <button id="showRegister">Kayıt Ol</button>
+  <button id="showLogin">Giriş Yap</button>
 </header>
 
 <main>
-  <section id="ipSection">
-    <p>ManhuntKrallığı IP</p>
-    <button id="copyIpBtn">Tıkla ve Kopyala</button>
-    <div id="copyMsg"></div>
-  </section>
-
-  <form id="registerForm" class="hidden" autocomplete="off">
-    <h2>Kayıt Ol</h2>
-    <label for="regUsername">Kullanıcı Adı</label>
-    <input type="text" id="regUsername" placeholder="Kullanıcı Adı" required />
-    <label for="regAge">Yaş</label>
-    <input type="number" id="regAge" min="7" max="120" placeholder="Yaş" required />
-    <label for="regCountry">Ülke</label>
-    <select id="regCountry" required>
-      <option value="">Ülke Seçiniz</option>
-    </select>
-    <label for="regPass">Şifre</label>
-    <input type="password" id="regPass" placeholder="Şifre" required />
-    <label for="regPass2">Şifre Tekrar</label>
-    <input type="password" id="regPass2" placeholder="Şifre Tekrar" required />
-    <div id="regError" class="error-msg"></div>
-    <div id="regSuccess" class="success-msg"></div>
-    <button type="submit">Kayıt Ol</button>
-  </form>
-
-  <form id="loginForm" class="hidden" autocomplete="off">
-    <h2>Giriş Yap</h2>
-    <label for="loginUsername">Kullanıcı Adı</label>
-    <input type="text" id="loginUsername" placeholder="Kullanıcı Adı" required />
-    <label for="loginPass">Şifre</label>
-    <input type="password" id="loginPass" placeholder="Şifre" required />
-    <div id="loginError" class="error-msg"></div>
-    <button type="submit">Giriş Yap</button>
-  </form>
+  <img src="https://static.wikia.nocookie.net/minecraft_gamepedia/images/9/9a/Alex_skin.png" alt="Minecraft Yakışıklı Karakter" />
 </main>
 
 <script>
-  const serverIP = 'manhuntkralligi.aternos.ME:34311';
-
-  const ipSection = document.getElementById('ipSection');
-  const registerForm = document.getElementById('registerForm');
-  const loginForm = document.getElementById('loginForm');
-
-  const copyIpBtn = document.getElementById('copyIpBtn');
-  const copyMsg = document.getElementById('copyMsg');
-
-  const homeBtn = document.getElementById('homeBtn');
-  const showRegister = document.getElementById('showRegister');
-  const showLogin = document.getElementById('showLogin');
-  const applyBtn = document.getElementById('applyBtn');
-
-  const countries = [
-    "Türkiye", "Almanya", "Amerika Birleşik Devletleri", "Fransa", "İngiltere", "İtalya",
-    "İspanya", "Brezilya", "Rusya", "Çin"
-  ];
-
-  const regCountry = document.getElementById('regCountry');
-  countries.forEach(country => {
-    const option = document.createElement('option');
-    option.value = country;
-    option.textContent = country;
-    regCountry.appendChild(option);
-  });
-
-  copyIpBtn.addEventListener('click', () => {
-    navigator.clipboard.writeText(serverIP).then(() => {
-      copyMsg.textContent = "IP kopyalandı!";
-      setTimeout(() => { copyMsg.textContent = ""; }, 2000);
-    });
-  });
-
-  showRegister.addEventListener('click', () => {
-    registerForm.classList.remove('hidden');
-    loginForm.classList.add('hidden');
-    ipSection.classList.add('hidden');
-  });
-  showLogin.addEventListener('click', () => {
-    loginForm.classList.remove('hidden');
-    registerForm.classList.add('hidden');
-    ipSection.classList.add('hidden');
-  });
-  homeBtn.addEventListener('click', () => {
-    ipSection.classList.remove('hidden');
-    registerForm.classList.add('hidden');
-    loginForm.classList.add('hidden');
-  });
-
-  applyBtn.addEventListener('click', () => {
-    alert(
-      `Yetkili Başvuru:\n\n` +
-      `Lütfen aşağıdaki soruları mailinize kopyalayın, doldurun ve\n` +
-      `manhuntkralligi@gmail.com adresine gönderin:\n\n` +
-      `- İsim Soyisim\n` +
-      `- Yaş\n` +
-      `- E-posta\n` +
-      `- İl\n` +
-      `- İlçe`
-    );
-  });
+  // Butonlara tıklama eventleri buraya eklenebilir
+  document.getElementById('applyBtn').addEventListener('click', () => alert('Yetkili başvuru butonuna tıklandı'));
+  document.getElementById('showRegister').addEventListener('click', () => alert('Kayıt ol butonuna tıklandı'));
+  document.getElementById('showLogin').addEventListener('click', () => alert('Giriş yap butonuna tıklandı'));
 </script>
 
 </body>
 </html>
-
