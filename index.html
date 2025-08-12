@@ -5,29 +5,30 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Manhunt Krallığı</title>
 <style>
+  /* Arka plan Minecraft temalı (güzel, uyumlu) */
   body, html {
     margin: 0; padding: 0; height: 100%;
-    overflow-x: hidden;
-    background: url('https://i.pinimg.com/originals/16/d6/c5/16d6c5d5a82ac3cd0b226ee1772d607a.jpg') no-repeat center center fixed;
+    background: url('https://cdn.pixabay.com/photo/2015/09/18/20/23/minecraft-949548_1280.jpg') no-repeat center center fixed;
     background-size: cover;
-    filter: brightness(0.7);
-    font-family: 'Arial', sans-serif;
-    color: #fff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #e1e1e1;
+    overflow-x: hidden;
   }
 
+  /* Üst bar */
   header {
     position: fixed;
     top: 0; left: 0; right: 0;
-    height: 40px;
-    background: rgba(0,0,0,0.35);
+    height: 45px;
+    background: rgba(0, 0, 0, 0.7);
     display: flex;
     align-items: center;
-    padding: 0 20px;
+    padding: 0 25px;
     box-sizing: border-box;
-    z-index: 100;
+    z-index: 1000;
     opacity: 0;
     transform: translateY(30px);
-    animation: slideUp 1s forwards;
+    animation: slideUp 0.8s forwards;
   }
 
   @keyframes slideUp {
@@ -44,78 +45,130 @@
 
   .left {
     flex: 1;
-    gap: 15px;
+    gap: 18px;
   }
+
   .center {
     flex: 1;
     justify-content: center;
-    font-size: 18px;
+    font-size: 22px;
     font-weight: 700;
     cursor: pointer;
     user-select: none;
-    letter-spacing: 2px;
-    color: #00ff00;
-    text-shadow: 0 0 6px #0f0;
+    color: #32cd32;
+    text-shadow: 0 0 8px #22bb22;
   }
+
   .right {
     flex: 1;
     justify-content: flex-end;
-    gap: 15px;
+    gap: 18px;
   }
 
+  /* Butonlar */
   header button {
     background: transparent;
-    border: 1.8px solid #00ff00;
-    border-radius: 12px;
-    color: #00ff00;
-    font-size: 12px;
+    border: 2px solid #32cd32;
+    border-radius: 15px;
+    color: #32cd32;
+    font-size: 13px;
     cursor: pointer;
-    padding: 5px 16px;
-    transition: background 0.3s ease, color 0.3s ease;
+    padding: 6px 18px;
     font-weight: 600;
+    transition: all 0.3s ease;
   }
   header button:hover {
-    background: #00ff00;
-    color: #003300;
+    background: #32cd32;
+    color: #002200;
   }
 
-  .character-container, .ip-container {
-    height: calc(100vh - 40px);
-    display: none;
+  /* Ana içerik: karakter ve ip alanı */
+  main {
+    margin-top: 60px;
+    height: calc(100vh - 60px);
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-    color: #00ff00;
-    font-weight: 700;
+    user-select: none;
+  }
+
+  .character-img {
+    max-width: 280px;
+    max-height: 360px;
+    filter: drop-shadow(0 0 15px #32cd32);
+    animation: fadeInUp 1.2s ease forwards;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* IP ve kopyalama alanı */
+  .ip-section {
+    margin-top: 28px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
     font-size: 20px;
-    text-shadow: 0 0 8px #0f0;
-    animation: slideUp 1s forwards;
-    animation-delay: 0.8s;
+    font-weight: 700;
+    color: #00ff00;
+    text-shadow: 0 0 10px #00bb00;
+    animation: fadeInUp 1.4s ease forwards;
+    opacity: 0;
+    transform: translateY(30px);
   }
 
-  .character-container img {
-    max-height: 70vh;
-    max-width: 40vw;
-    object-fit: contain;
-    filter: drop-shadow(0 0 12px #00ff00);
-    margin-bottom: 15px;
+  .ip-text {
+    cursor: pointer;
+    border-bottom: 1.8px solid #00ff00;
+    user-select: text;
   }
 
+  .copy-btn {
+    background: #00ff00;
+    border: none;
+    border-radius: 10px;
+    color: #004400;
+    padding: 5px 14px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 0 12px #00ff00;
+    transition: background 0.3s ease;
+  }
+  .copy-btn:hover {
+    background: #00cc00;
+  }
+
+  /* Responsive */
   @media (max-width: 600px) {
     header {
-      height: 50px;
-      padding: 0 10px;
+      height: 55px;
+      padding: 0 15px;
     }
     header button {
       font-size: 11px;
-      padding: 7px 12px;
-    }
-    .character-container img {
-      max-height: 50vh;
-      max-width: 70vw;
+      padding: 7px 14px;
     }
     .center {
+      font-size: 18px;
+    }
+    .character-img {
+      max-width: 180px;
+      max-height: 230px;
+    }
+    .ip-section {
       font-size: 16px;
+      gap: 8px;
+    }
+    .copy-btn {
+      padding: 5px 10px;
+      font-size: 14px;
     }
   }
 </style>
@@ -134,13 +187,14 @@
   </div>
 </header>
 
-<div class="character-container" id="charContainer">
-  <img src="https://static.wikia.nocookie.net/minecraft_gamepedia/images/5/55/Steve.png" alt="Minecraft Karakter" />
-</div>
-
-<div class="ip-container" id="ipContainer">
-  <p>ManhuntKrallığı IP: <strong>manhuntkralligi.aternos.me:34311</strong></p>
-</div>
+<main>
+  <img src="https://static.wikia.nocookie.net/minecraft_gamepedia/images/5/55/Steve.png" alt="Minecraft Karakter" class="character-img" id="charImg" style="display:none;" />
+  
+  <div class="ip-section" id="ipSection" style="display:none;">
+    <span class="ip-text" id="ipText" title="Tıkla ve IP'yi kopyala!">ManhuntKrallığı: <strong>manhuntkralligi.aternos.me:34311</strong></span>
+    <button class="copy-btn" id="copyBtn">IP'yi Kopyala</button>
+  </div>
+</main>
 
 <script>
   const applyBtn = document.getElementById('applyBtn');
@@ -148,10 +202,12 @@
   const homeBtn = document.getElementById('homeBtn');
   const registerBtn = document.getElementById('registerBtn');
   const loginBtn = document.getElementById('loginBtn');
-  const charContainer = document.getElementById('charContainer');
-  const ipContainer = document.getElementById('ipContainer');
+  const charImg = document.getElementById('charImg');
+  const ipSection = document.getElementById('ipSection');
+  const ipText = document.getElementById('ipText');
+  const copyBtn = document.getElementById('copyBtn');
 
-  // Tüm butonlar için aktif değil uyarısı (kayıt, giriş, başvuru)
+  // Aktif değil uyarıları
   applyBtn.addEventListener('click', () => {
     alert('Yetkili Başvuru henüz aktif değil!');
   });
@@ -162,21 +218,44 @@
     alert('Giriş Yap henüz aktif değil!');
   });
 
-  // Destek butonu mail alerti
+  // Destek butonu mail alert
   supportBtn.addEventListener('click', () => {
     alert('Şikayetinizi bildirmek için lütfen manhuntkralligi@gmail.com adresine mail atınız.');
   });
 
-  // Ana Sayfa tıklanınca karakter ve IP göster
+  // Ana Sayfa tıklanınca karakter ve ip göster/gizle
   homeBtn.addEventListener('click', () => {
-    charContainer.style.display = 'flex';
-    ipContainer.style.display = 'flex';
+    if (charImg.style.display === 'none') {
+      charImg.style.display = 'block';
+      ipSection.style.display = 'flex';
+    } else {
+      charImg.style.display = 'none';
+      ipSection.style.display = 'none';
+    }
   });
 
-  // Sayfa yüklendiğinde karakter ve IP gizli
+  // IP kısmına tıklayınca kopyala
+  ipText.addEventListener('click', () => {
+    copyIP();
+  });
+
+  copyBtn.addEventListener('click', () => {
+    copyIP();
+  });
+
+  function copyIP() {
+    const ipAddress = 'manhuntkralligi.aternos.me:34311';
+    navigator.clipboard.writeText(ipAddress).then(() => {
+      alert('IP kopyalandı!');
+    }).catch(() => {
+      alert('IP kopyalanamadı! Tarayıcı desteklemiyor olabilir.');
+    });
+  }
+
+  // Sayfa yüklendiğinde karakter ve ip gizli
   window.addEventListener('load', () => {
-    charContainer.style.display = 'none';
-    ipContainer.style.display = 'none';
+    charImg.style.display = 'none';
+    ipSection.style.display = 'none';
   });
 </script>
 
