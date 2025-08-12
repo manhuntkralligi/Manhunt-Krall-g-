@@ -236,10 +236,10 @@
 </main>
 
 <script>
-  // IP adresi (örnek)
+  // IP adresi
   const serverIP = 'play.manhuntkralligi.com';
 
-  // Sayfa elementleri
+  // Elementler
   const ipSection = document.getElementById('ipSection');
   const registerForm = document.getElementById('registerForm');
   const loginForm = document.getElementById('loginForm');
@@ -248,13 +248,97 @@
   const copyIpBtn = document.getElementById('copyIpBtn');
   const copyMsg = document.getElementById('copyMsg');
 
-  // Butonlar
   const homeBtn = document.getElementById('homeBtn');
   const showRegister = document.getElementById('showRegister');
   const showLogin = document.getElementById('showLogin');
   const applyBtn = document.getElementById('applyBtn');
 
-  // Ülkeler listesi (tam liste ekleyebilirsin)
+  // Ülkeler listesi
   const countries = [
     "Türkiye", "Almanya", "Amerika Birleşik Devletleri", "Fransa", "İngiltere", "İtalya",
-    "İspanya", "Brezilya", "Rusya", "Çin",
+    "İspanya", "Brezilya", "Rusya", "Çin"
+  ];
+
+  // Ülkeleri doldur
+  const regCountry = document.getElementById('regCountry');
+  countries.forEach(c => {
+    let option = document.createElement('option');
+    option.value = c;
+    option.textContent = c;
+    regCountry.appendChild(option);
+  });
+
+  // Buton eventleri
+  homeBtn.onclick = () => {
+    registerForm.classList.add('hidden');
+    loginForm.classList.add('hidden');
+    applyForm.classList.add('hidden');
+    ipSection.style.display = 'block';
+  };
+
+  showRegister.onclick = () => {
+    registerForm.classList.remove('hidden');
+    loginForm.classList.add('hidden');
+    applyForm.classList.add('hidden');
+    ipSection.style.display = 'none';
+  };
+
+  showLogin.onclick = () => {
+    loginForm.classList.remove('hidden');
+    registerForm.classList.add('hidden');
+    applyForm.classList.add('hidden');
+    ipSection.style.display = 'none';
+  };
+
+  applyBtn.onclick = () => {
+    applyForm.classList.remove('hidden');
+    registerForm.classList.add('hidden');
+    loginForm.classList.add('hidden');
+    ipSection.style.display = 'none';
+  };
+
+  // IP kopyalama
+  copyIpBtn.onclick = () => {
+    navigator.clipboard.writeText(serverIP).then(() => {
+      copyMsg.textContent = 'IP Kopyalandı!';
+      setTimeout(() => copyMsg.textContent = '', 2000);
+    });
+  };
+
+  // Basit form submit engelleme ve mesajlar (kendi backend'in yoksa sadece gösterir)
+  registerForm.onsubmit = e => {
+    e.preventDefault();
+    const pass1 = document.getElementById('regPass').value;
+    const pass2 = document.getElementById('regPass2').value;
+    const error = document.getElementById('regError');
+    const success = document.getElementById('regSuccess');
+    error.textContent = '';
+    success.textContent = '';
+
+    if(pass1 !== pass2) {
+      error.textContent = 'Şifreler uyuşmuyor!';
+      return;
+    }
+    success.textContent = 'Kayıt başarılı (demo)!';
+  };
+
+  loginForm.onsubmit = e => {
+    e.preventDefault();
+    const error = document.getElementById('loginError');
+    error.textContent = '';
+    // Demo giriş, hep hata yok
+    alert('Giriş demo sürümünde aktif değil.');
+  };
+
+  applyForm.onsubmit = e => {
+    e.preventDefault();
+    const error = document.getElementById('applyError');
+    const success = document.getElementById('applySuccess');
+    error.textContent = '';
+    success.textContent = '';
+    success.textContent = 'Başvurunuz alındı (demo)!';
+  };
+</script>
+
+</body>
+</html>
