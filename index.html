@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Manhunt Krallığı</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+<style>
+  body, html {
+    margin:0; padding:0; height:100%;
+    font-family: 'Press Start 2P', cursive;
+    background: url('https://wallpapercave.com/wp/wp4551731.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #0f0;
+    user-select:none;
+  }
+  header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background: rgba(0,0,0,0.75);
+    padding: 15px 0;
+    box-shadow: 0 0 12px #0f0;
+  }
+  header h1 {
+    cursor: pointer;
+    font-size: 1.8rem;
+    letter-spacing: 3px;
+    text-shadow: 0 0 6px #0f0;
+    color: #55ff55;
+  }
+  header .left-btn, header .right-btns {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  header .left-btn {
+    left: 20px;
+  }
+  header .right-btns {
+    right: 20px;
+    display: flex;
+    gap: 10px;
+  }
+  header button {
+    background: #004400;
+    border: 2px solid #0f0;
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-weight: 700;
+    cursor: pointer;
+    color: #0f0;
+    font-family: 'Press Start 2P', cursive;
+    text-shadow: 0 0 5px #0f0;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+  header button:hover {
+    background: #00ff00;
+    color: #003300;
+    box-shadow: 0 0 12px #0f0;
+  }
+
+  main {
+    max-width: 480px;
+    margin: 40px auto;
+    background: rgba(0,0,0,0.75);
+    border-radius: 15px;
+    padding: 25px 30px;
+    box-shadow: 0 0 20px #0f0;
+  }
+  .hidden {display:none;}
+
+  #ipSection {
+    text-align: center;
+    margin-top: 30px;
+  }
+  #ipSection button {
+    background: #006600;
+    border: 2px solid #0f0;
+    padding: 12px 28px;
+    border-radius: 30px;
+    font-size: 1rem;
+    cursor: pointer;
+    color: #0f0;
+    font-family: 'Press Start 2P', cursive;
+    text-shadow: 0 0 6px #0f0;
+    user-select:none;
+    transition: background 0.3s ease;
+  }
+  #ipSection button:hover {
+    background: #00ff00;
+    color: #003300;
+    box-shadow: 0 0 12px #0f0;
+  }
+  #ipSection p {
+    font-weight: 700;
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    user-select:none;
+    text-shadow: 0 0 5px #0f0;
+  }
+  #copyMsg {
+    color: #00ff00;
+    font-weight: 700;
+    margin-top: 10px;
+    height: 24px;
+    text-shadow: 0 0 6px #0f0;
+    user-select:none;
+  }
+
+  form label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: 700;
+    font-size: 0.7rem;
+    color: #0f0;
+    text-shadow: 0 0 5px #0f0;
+  }
+  form input, form select {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 2px solid #0f0;
+    background: #000;
+    color: #0f0;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.8rem;
+    box-sizing: border-box;
+  }
+  form input::placeholder {
+    color: #0f0;
+    opacity: 0.7;
+  }
+  form button {
+    width: 100%;
+    margin-top: 15px;
+    padding: 12px 0;
+    font-weight: 700;
+    font-size: 0.9rem;
+    background: #006600;
+    border: 2px solid #0f0;
+    border-radius: 30px;
+    color: #0f0;
+    cursor: pointer;
+    font-family: 'Press Start 2P', cursive;
+    text-shadow: 0 0 8px #0f0;
+    transition: background 0.3s ease;
+  }
+  form button:hover {
+    background: #00ff00;
+    color: #003300;
+    box-shadow: 0 0 12px #0f0;
+  }
+  .error-msg {
+    color: #ff4444;
+    font-weight: 700;
+    margin: 5px 0 10px;
+    font-family: 'Press Start 2P', cursive;
+    text-shadow: 0 0 8px #f00;
+  }
+  .success-msg {
+    color: #00ff00;
+    font-weight: 700;
+    margin: 5px 0 10px;
+    font-family: 'Press Start 2P', cursive;
+    text-shadow: 0 0 8px #0f0;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="left-btn">
+    <button id="applyBtn">Yetkili Başvuru</button>
+  </div>
+  <h1 id="homeBtn">Ana Sayfa</h1>
+  <div class="right-btns">
+    <button id="showRegister">Kayıt Ol</button>
+    <button id="showLogin">Giriş Yap</button>
+  </div>
+</header>
+
+<main>
+  <section id="ipSection">
+    <p>ManhuntKrallığı IP</p>
+    <button id="copyIpBtn">Tıkla ve Kopyala</button>
+    <div id="copyMsg"></div>
+  </section>
+
+  <form id="registerForm" class="hidden" autocomplete="off">
+    <h2>Kayıt Ol</h2>
+    <label for="regUsername">Kullanıcı Adı</label>
+    <input type="text" id="regUsername" placeholder="Kullanıcı Adı" required />
+    <label for="regAge">Yaş</label>
+    <input type="number" id="regAge" min="7" max="120" placeholder="Yaş" required />
+    <label for="regCountry">Ülke</label>
+    <select id="regCountry" required>
+      <option value="">Ülke Seçiniz</option>
+    </select>
+    <label for="regPass">Şifre</label>
+    <input type="password" id="regPass" placeholder="Şifre" required />
+    <label for="regPass2">Şifre Tekrar</label>
+    <input type="password" id="regPass2" placeholder="Şifre Tekrar" required />
+    <div id="regError" class="error-msg"></div>
+    <div id="regSuccess" class="success-msg"></div>
+    <button type="submit">Kayıt Ol</button>
+  </form>
+
+  <form id="loginForm" class="hidden" autocomplete="off">
+    <h2>Giriş Yap</h2>
+    <label for="loginUsername">Kullanıcı Adı</label>
+    <input type="text" id="loginUsername" placeholder="Kullanıcı Adı" required />
+    <label for="loginPass">Şifre</label>
+    <input type="password" id="loginPass" placeholder="Şifre" required />
+    <div id="loginError" class="error-msg"></div>
+    <button type="submit">Giriş Yap</button>
+  </form>
+
+  <form id="applyForm" class="hidden" autocomplete="off">
+    <h2>Yetkili Başvuru</h2>
+    <label for="applyName">İsim Soyisim</label>
+    <input type="text" id="applyName" placeholder="İsim Soyisim" required />
+    <label for="applyAge">Yaş</label>
+    <input type="number" id="applyAge" min="7" max="120" placeholder="Yaş" required />
+    <label for="applyEmail">E-posta</label>
+    <input type="email" id="applyEmail" placeholder="E-posta" required />
+    <label for="applyCity">İl</label>
+    <input type="text" id="applyCity" placeholder="İl" required />
+    <label for="applyDistrict">İlçe</label>
+    <input type="text" id="applyDistrict" placeholder="İlçe" required />
+    <div id="applyError" class="error-msg"></div>
+    <div id="applySuccess" class="success-msg"></div>
+    <button type="submit">Başvuruyu Gönder</button>
+  </form>
+</main>
+
+<script>
+  // IP adresi (örnek)
+  const serverIP = 'play.manhuntkralligi.com';
+
+  // Sayfa elementleri
+  const ipSection = document.getElementById('ipSection');
+  const registerForm = document.getElementById('registerForm');
+  const loginForm = document.getElementById('loginForm');
+  const applyForm = document.getElementById('applyForm');
+
+  const copyIpBtn = document.getElementById('copyIpBtn');
+  const copyMsg = document.getElementById('copyMsg');
+
+  // Butonlar
+  const homeBtn = document.getElementById('homeBtn');
+  const showRegister = document.getElementById('showRegister');
+  const showLogin = document.getElementById('showLogin');
+  const applyBtn = document.getElementById('applyBtn');
+
+  // Ülkeler listesi (tam liste ekleyebilirsin)
+  const countries = [
+    "Türkiye", "Almanya", "Amerika Birleşik Devletleri", "Fransa", "İngiltere", "İtalya",
+    "İspanya", "Brezilya", "Rusya", "Çin",
